@@ -1,4 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap");
 
+* {
+  font-family: "Nunito", sans-serif;
+}
 
 /* Navbar */
 .nav-bar {
@@ -35,4 +39,25 @@
   background-color: red;
   color: white;
   font-weight: bolder;
+}
+
+/* not found */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  color: rgb(68, 68, 68);
+  min-height: 80vh;
+}
+
+.not-found h2 {
+  margin: 0;
+  font-size: 55px;
+}
+
+.not-found p {
+  margin: 0;
+  font-size: 20px;
 }
