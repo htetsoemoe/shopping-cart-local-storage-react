@@ -1,6 +1,8 @@
 const express = require("express")
 const cors = require("cors")
 
+const products = require("./products")
+
 const app = express() // Creates an express application
 
 app.use(express.json())
@@ -11,7 +13,7 @@ app.get("/", (req, resp) => {
 })
 
 app.get("/products", (req, resp) => {
-    resp.send([1, 2, 3, 4])
+    resp.send(products)
 })
 
 const port = process.env.PORT || 5000
