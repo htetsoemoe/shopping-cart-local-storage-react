@@ -4,3 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    height: 100vh;
+    background-color: rgb(55 65 81);
+}
