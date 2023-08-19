@@ -6,6 +6,7 @@ import Cart from './components/Cart'
 import Navbar from './components/Navbar'
 import NotFound from './components/NotFound'
 import Admin from './components/Admin'
+import ProductEdit from './components/ProductEdit'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Routes >
         <Route path='/admin' element={<Admin />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/edit/:id' element={<ProductEdit />}/>
         <Route path='/' element={<Home />} />
         <Route path='/not-found-page' element={<NotFound />} />
         <Route path='*' element={<Navigate to="/not-found-page" />} />
