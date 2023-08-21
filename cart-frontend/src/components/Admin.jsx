@@ -48,7 +48,7 @@ const Admin = () => {
 
   // get products from global storage 
   const products = useSelector(state => state.productSlice.products)
-  console.log(products);
+  //console.log(products);
 
   // get searchProduct from global storage
   const searchProduct = useSelector(state => state.productSlice.searchProduct)
