@@ -17,6 +17,12 @@ export const productsApi = createApi({
             }),
             providesTags: ['products']
         }),
+        getSingleProduct: builder.query({
+            query: (id) => ({
+                url: `products/${id}`
+            }),
+            providesTags: ['products']
+        }),
         createProduct: builder.mutation({
             query: (product) => ({
                 url: '/products',
@@ -30,4 +36,4 @@ export const productsApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const {useGetAllProductsQuery, useCreateProductMutation} = productsApi
+export const { useGetAllProductsQuery, useGetSingleProductQuery, useCreateProductMutation } = productsApi
