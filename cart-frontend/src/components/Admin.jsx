@@ -3,22 +3,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { FileInput, Table, TextInput, Title } from '@mantine/core'
 import { Form, useForm } from '@mantine/form';
+import Swal from 'sweetalert2'
 import { addProduct, setSearchProduct } from '../redux/services/productSlice';
-import { useCreateProductMutation, useGetAllProductsQuery } from '../redux/api/productsApi';
+import { useCreateProductMutation, useGetAllProductsQuery, useDeleteProductMutation } from '../redux/api/productsApi';
 
 const Admin = () => {
 
   // for new product upload
   const [createProduct] = useCreateProductMutation()
 
+  // Delete Product with specified id
+  const [deleteProduct] = useDeleteProductMutation()
+
   const [name, setName] = useState("")
   const [image, setImage] = useState("")
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState("")
 
-  // used in form submit button
+  // used in form submit button (Create new product)
   const handleForm = async (event) => {
-    event.preventDefault()
+    event.preventDefault() // prevent default submit 
 
     let data = new FormData()
     data.append("name", name)
@@ -26,7 +30,7 @@ const Admin = () => {
     data.append("description", description)
     data.append("price", price)
 
-    console.log(data)
+    //console.log(data)
     await createProduct(data)
   }
 
@@ -59,6 +63,28 @@ const Admin = () => {
     currency: 'USD',
   })
 
+  // Delete Product Handler
+  const deleteProductHandler = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your product has been deleted.',
+          'success'
+        )
+        await deleteProduct(id)
+      }
+    })
+  }
+
   // create rows for products
   const rows = products?.filter(product => {
     if (searchProduct === "") {
@@ -82,9 +108,14 @@ const Admin = () => {
         <td>
           <div className="flex justify-center items-center gap-3">
             <Link to={`/edit/${product?.id}`}>
-              <p className='px-3 py-1 bg-blue-700 rounded text-white'>Edit</p>
+              <p className='px-3 py-1 bg-blue-700 hover:bg-blue-600 rounded text-white transform duration-500 hover:-translate-y-1'>
+                Edit
+              </p>
             </Link>
-            <p onClick={() => { }} className='px-3 py-1 bg-red-700 rounded text-white'>Delete</p>
+            <p onClick={() => deleteProductHandler(product?.id)} 
+              className='px-3 py-1 bg-red-700 hover:bg-red-600 rounded text-white hover:cursor-pointer transform duration-500 hover:-translate-y-1'>
+                Delete
+              </p>
           </div>
         </td>
       </tr>
@@ -102,7 +133,7 @@ const Admin = () => {
           </div>
           <div className="">
             <label className='text-xl text-white mr-5' htmlFor="uploadImage">Image : </label>
-            <input onChange={event => handleFileInputChange(event)} className='' type="file" name="image" id='uploadImage'/>
+            <input onChange={event => handleFileInputChange(event)} className='' type="file" name="image" id='uploadImage' />
           </div>
           <div className="">
             <label className='text-xl text-white mr-5' htmlFor="price">Price : </label>

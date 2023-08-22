@@ -8,6 +8,7 @@ const ProductEdit = () => {
     const { data } = useGetSingleProductQuery(id);
     //console.log(data);
 
+    // Update Product with specified id
     const [updateProduct] = useUpdateProductMutation()
 
     const [name, setName] = useState("")
@@ -34,7 +35,7 @@ const ProductEdit = () => {
             data.append("image", image)
         }
 
-        console.log(data)
+        //console.log(data)
         await updateProduct({ id: id, product: data })
         navigate('/admin')
     }
@@ -49,7 +50,7 @@ const ProductEdit = () => {
     return (
         <div className="mt-20">
             <div className='flex justify-center mx-auto w-96 mb-5'>
-                <h1 className='text-2xl text-white font-semibold'>Product Edit</h1>
+                <h1 className='text-2xl text-white font-semibold'>Product Editor</h1>
             </div>
             <div className='flex justify-center items-start h-screen gap-7'>
                 <div className="mt-2">
@@ -57,21 +58,21 @@ const ProductEdit = () => {
                 </div>
                 <form>
                     <div className="flex flex-col gap-3 w-96 mb-5">
-                        <label htmlFor="name" className='text-xl text-white'>Name*</label>
+                        <label htmlFor="name" className='text-xl text-white'>Name *</label>
                         <input type="text" name="name" id="name"
                             value={name}
                             onChange={(event) => { setName(event.target.value) }}
                             className='p-2' />
                     </div>
                     <div className="flex flex-col gap-3 w-96 mb-5">
-                        <label htmlFor="name" className='text-xl text-white'>Price*</label>
+                        <label htmlFor="name" className='text-xl text-white'>Price *</label>
                         <input type="text" name="price" id="price"
                             value={price}
                             onChange={(event) => { setPrice(event.target.value) }}
                             className='p-2' />
                     </div>
                     <div className="flex flex-col gap-3 w-96 mb-5">
-                        <label htmlFor="desc" className='text-xl text-white'>Description*</label>
+                        <label htmlFor="desc" className='text-xl text-white'>Description *</label>
                         <textarea value={description} onChange={(event) => { setDescription(event.target.value) }}
                             className='p-2'
                             name="description" id="desc" cols="30" rows="5"></textarea>
