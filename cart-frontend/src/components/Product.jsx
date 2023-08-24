@@ -1,11 +1,13 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { addToCart } from '../redux/services/cartSlice'
 
 const Product = ({ product }) => {
     const { name, price, image, description } = product
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     // Format the price to USD using the locale, style, and currency.
     let USDollar = new Intl.NumberFormat('en-US', {
@@ -16,7 +18,8 @@ const Product = ({ product }) => {
     // Add to cart handler
     const addToCartHandler = (product) => {
         dispatch(addToCart(product))
-        console.log(product)
+        navigate("/cart")
+        //console.log(product)
     }
 
     return (
