@@ -1,5 +1,7 @@
 import React from 'react'
 import './index.css'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './components/Home'
 import Cart from './components/Cart'
@@ -12,6 +14,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
+      <ToastContainer />
       <Routes >
         <Route path='/admin' element={<Admin />} />
         <Route path='/cart' element={<Cart />} />
@@ -20,7 +23,6 @@ const App = () => {
         <Route path='/not-found-page' element={<NotFound />} />
         <Route path='*' element={<Navigate to="/not-found-page" />} />
       </Routes>
-      
     </div>
   )
 }

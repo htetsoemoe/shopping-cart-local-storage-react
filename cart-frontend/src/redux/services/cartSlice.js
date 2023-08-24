@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {toast} from "react-toastify"
 
 const initialState = {
     cartItems: [],
@@ -22,9 +23,15 @@ const cartSlice = createSlice({
                     ...state.cartItems[existingIndex], 
                     cartQuantity: state.cartItems[existingIndex].cartQuantity += 1 
                 }
+                toast.info("Increased Product Quantity!", {
+                    position: "bottom-left"
+                })
             } else { // if new product
                 const tempProductItem = {...action.payload, cartQuantity: 1}
                 state.cartItems.push(tempProductItem)
+                toast.success("Product was added to cart!", {
+                    position: "bottom-left"
+                })
             }
         }
     }
