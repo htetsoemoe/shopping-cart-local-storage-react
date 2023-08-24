@@ -1,13 +1,23 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../redux/services/cartSlice'
 
 const Product = ({ product }) => {
     const { name, price, image, description } = product
+
+    const dispatch = useDispatch()
 
     // Format the price to USD using the locale, style, and currency.
     let USDollar = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
     })
+
+    // Add to cart handler
+    const addToCartHandler = (product) => {
+        dispatch(addToCart(product))
+        console.log(product)
+    }
 
     return (
         <div className="flex flex-col w-96 p-7 mt-3 shadow bg-slate-800 rounded transform duration-500 hover:-translate-y-2">
@@ -19,7 +29,11 @@ const Product = ({ product }) => {
             <div className="mb-5">
                 <span className="font-nunito text-xl font-semibold text-yellow-300">{USDollar.format(price)}</span>
             </div>
-            <button className='bg-green-700 hover:bg-green-500 py-2 text-black font-nunito font-semibold tracking-wider rounded'>Add To Cart</button>
+            <button 
+                onClick={() => addToCartHandler(product)}
+                className='bg-green-700 hover:bg-green-500 py-2 text-black font-nunito font-semibold tracking-wider rounded'>
+                    Add To Cart
+            </button>
         </div>
     )
 }
