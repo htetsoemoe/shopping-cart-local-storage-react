@@ -5,6 +5,7 @@ const initialState = {
     // get cartItems from localStorage
     cartItems: localStorage.getItem("cartItems") ? 
             JSON.parse(localStorage.getItem("cartItems")) : [],
+    cartSubTotal: 0,
     cartTotalQuantity: 0,
     cartTotalAmount: 0,
 }
@@ -37,9 +38,33 @@ const cartSlice = createSlice({
             }
             // After add new product or update product quantity, set cart to localStorage
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems))
+        },
+        decreaseItemFromCart(state, action) {
+            const itemIndex = state.cartItems.findIndex(
+                item => item.id === action.payload.id
+            )
+
+            if (state.cartItems[itemIndex].cartQuantity > 1) {
+                state.cartItems[itemIndex].cartQuantity -= 1
+
+                toast.info(`Decreased ${action.payload.name} quantity!`, {
+                    position: "bottom-left"
+                })
+            } else if (state.cartItems[itemIndex].cartQuantity === 1) {
+                const newCartItems = state.cartItems.filter(
+                    item => item.id !== action.payload.id
+                )
+
+                state.cartItems = newCartItems
+
+                toast.error(`${action.payload.name} was removed from cart!`, {
+                    position: "bottom-left"
+                })
+            }
+            localStorage.setItem("cartItems", JSON.stringify(state.cartItems))
         }
     }
 })
 
-export const { addToCart } = cartSlice.actions
+export const { addToCart, decreaseItemFromCart } = cartSlice.actions
 export default cartSlice.reducer
