@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 const Navbar = () => {
   const cartItems = useSelector(state => state.cartSlice.cartItems)
+  const cartTotalQuantity = useSelector(state => state.cartSlice.cartTotalQuantity)
   //console.log(cartItems);
 
   return (
@@ -27,8 +28,8 @@ const Navbar = () => {
                 cartItems.length === 0 ? (
                   ''
                 ): (
-                  <span className = "absolute bottom-4 left-7 bg-red-500 text-white w-5 text-center rounded-full">
-                      <span className='item'>{cartItems.length}</span>
+                  <span className = "absolute bottom-4 left-7 bg-red-500 text-white font-semibold w-6 text-center rounded-full">
+                      <span className='item'>{cartTotalQuantity}</span>
                   </span>
                 )
               }
