@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { BsPlusCircleFill } from 'react-icons/bs'
 import { FaCircleMinus } from 'react-icons/fa6'
-import { addToCart, decreaseItemFromCart, getBalance } from '../redux/services/cartSlice'
+import { addToCart, decreaseItemFromCart, getBalance, clearCart } from '../redux/services/cartSlice'
 
 const Cart = () => {
   const cartSlice = useSelector(state => state.cartSlice)
@@ -32,6 +32,10 @@ const Cart = () => {
     dispatch(decreaseItemFromCart(product))
   }
 
+  const clearCartHandler = () => {
+    dispatch(clearCart());
+  }
+
   return (
     <div className='mt-24' >
       <div className="flex justify-center items-center mb-12">
@@ -58,14 +62,14 @@ const Cart = () => {
                 <div className="flex justify-center items-center gap-3 w-40">
                   <div className="cursor-pointer select-none">
                     <FaCircleMinus onClick={() => decreaseItemCart(item)}
-                      className='text-2xl text-yellow-300 font-bold' />
+                      className='text-2xl text-yellow-300 hover:text-yellow-200 font-bold transform duration-500 hover:-translate-y-1' />
                   </div>
                   <div className="text-white text-2xl font-semibold">
                     {item?.cartQuantity}
                   </div>
                   <div className="cursor-pointer select-none">
                     <BsPlusCircleFill onClick={() => addProductHandler(item)}
-                      className='text-2xl text-green-600 font-bold' />
+                      className='text-2xl text-green-600 hover:text-green-500 font-bold transform duration-500 hover:-translate-y-1' />
                   </div>
                 </div>
                 <div className="flex justify-center items-center gap-16 w-40">
@@ -79,7 +83,10 @@ const Cart = () => {
 
           <div className="flex justify-evenly items-start mt-10">
             <div className="">
-              <p className='px-3 py-2 bg-red-700 hover:bg-red-500 cursor-pointer rounded text-white'>Clear Cart</p>
+              <p onClick={() => clearCartHandler()}
+                  className='px-3 py-2 bg-red-700 hover:bg-red-500 cursor-pointer rounded text-white transform duration-500 hover:-translate-y-1'>
+                Clear Cart
+              </p>
             </div>
             <div className="flex flex-col gap-3 w-96">
               <div className="flex justify-end items-end gap-40">
@@ -94,7 +101,9 @@ const Cart = () => {
                 <h1 className='text-white text-xl'>Total</h1>
                   <p className="text-white font-bold text-xl">{UsDollar.format(cartTotalAmount)}</p>
               </div>
-              <button className='bg-green-700 hover:bg-green-600 py-3 rounded text-white font-semibold tracking-wider mt-4'>Checkout</button>
+                <button className='bg-green-700 hover:bg-green-600 py-3 rounded text-white font-semibold tracking-wider mt-4 transform duration-500 hover:-translate-y-1'>
+                Checkout
+              </button>
             </div>
           </div>
         </div>

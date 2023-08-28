@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getBalance } from '../redux/services/cartSlice'
 
 const Navbar = () => {
   const cartItems = useSelector(state => state.cartSlice.cartItems)
-  const cartTotalQuantity = useSelector(state => state.cartSlice.cartTotalQuantity)
   //console.log(cartItems);
+
+  const cartSlice = useSelector(state => state.cartSlice)
+  const cartTotalQuantity = useSelector(state => state.cartSlice.cartTotalQuantity)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getBalance())
+  }, [cartSlice])
 
   return (
     <div>
